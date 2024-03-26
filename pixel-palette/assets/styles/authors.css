@@ -1,0 +1,35 @@
+body {
+    background-color: #EAEAEA;
+    padding: 0 30px;
+}
+h1 {
+    text-align: start;
+    padding: 30px 0px;
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.author {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    background-color: white;
+}
+img {
+    width: 40px;
+}
+a {
+    color: black;
+    text-decoration: none;
+}

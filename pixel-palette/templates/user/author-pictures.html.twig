@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/author-pictures.css') }}">
+{% endblock %}
+{% block body %}
+<h1>Photos de {{ pseudo }}</h1>
+<div class="grid">
+    {% for picture in pictures %}
+        <img alt="{{picture.title}}" src="{{ asset('images/' ~ picture.picture) }}">
+    {% endfor %}
+</div>
+{% endblock %}
