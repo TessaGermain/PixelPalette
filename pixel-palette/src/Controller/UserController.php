@@ -19,10 +19,10 @@ class UserController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/index', name: 'index')]
-    public function index(): Response
+    #[Route('/home', name: 'home')]
+    public function home(): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('home.html.twig');
     }
 
     #[Route('/login', name: 'login')]
@@ -42,7 +42,7 @@ class UserController extends AbstractController
         if (password_verify($password, $user->getPassword())) {
             $session->set('pseudo', $user->getPseudo());
             $session->set('isLogin', true);
-            return $this->redirectToRoute('index');    
+            return $this->redirectToRoute('home');    
         } else {
             $session->clear();
             return $this->render('user/login.html.twig', [
@@ -71,6 +71,6 @@ class UserController extends AbstractController
         $this->entityManager->flush();
         $session->set('pseudo', $pseudo);
         $session->set('isLogin', true);
-        return $this->redirectToRoute('index');
+        return $this->redirectToRoute('home');
     }
 }
