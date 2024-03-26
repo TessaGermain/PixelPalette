@@ -1,7 +1,20 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+{% endblock %}
 {% block nav %}
 {{ parent() }}
 {% endblock %}
 {% block body %}
-<h1>C'est l'index !</h1>
+<div class="container_landing">
+    <div class="content_landing">
+        <h1>Bienvenue sur <span>PixelPalette</span></h1>
+        <p>PixelPalette est une plateforme sociale où les passionnés de photographie se connectent pour partager leurs clichés et découvrir l'inspiration à travers une palette infinie d'images.</p>
+        <button><img src="{{ asset('images/image_icon.png') }}">Explorer</button>
+    </div>
+</div>
+<div class="galerie">
+    <h2>Galerie</h2>
+</div>
 {% endblock %}
