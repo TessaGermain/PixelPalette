@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<form action="{{ path('signup-form') }}" method="post">
+    <input type="text" name="mail" placeholder="Votre mail">
+    <input type="text" name="pseudo" placeholder="Votre pseudo">
+    <input type="password" name="password" placeholder="Votre mot de passe">
+    <button type="submit">S'inscrire</button>
+</form>
+{% endblock %}
