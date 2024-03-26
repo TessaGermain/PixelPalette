@@ -42,7 +42,7 @@ input::placeholder {
     padding: 10px;
     border-radius: 5px;
     font-size: 17px;
-    color: white;
+    color: white !important;
     background: linear-gradient(149deg, rgba(65,80,138,1) 0%, rgba(2,26,113,1) 100%);
     border: none;
     transition: 0.2s;
@@ -50,4 +50,73 @@ input::placeholder {
 .button:hover {
     cursor: pointer;
     background: linear-gradient(149deg, rgb(102, 121, 197) 0%, rgb(53, 77, 163) 100%);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+.logo img {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu a{
+    color: #292929;
+    text-decoration: none;
+}
+
+.menu li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.search-bar{
+    position: relative;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px 15px 10px 15px;
+    margin-right: 10px;
+    background-color: #EEEEEE;
+    border-radius: 20px;
+    border: none;
+}
+
+.search-bar button {
+    padding: 4px 0px 4px 0px;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-bar img{
+    width: 23px;
+}
+
+#auth-buttons{
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #fff;
 }
