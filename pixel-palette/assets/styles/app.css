@@ -120,11 +120,3 @@ input::placeholder {
     padding: 5px 10px;
     border: 1px solid #fff;
 }
-=======
-    transition: 0.2s;
-}
-.button:hover {
-    cursor: pointer;
-    background: linear-gradient(149deg, rgb(102, 121, 197) 0%, rgb(53, 77, 163) 100%);
-}
->>>>>>> f2ac0509d467b1935424f38ae7c4460db3dd797d
