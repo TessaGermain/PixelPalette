@@ -31,6 +31,9 @@ class Picture
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
+    #[ORM\Column]
+    private ?int $like = null;
+
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userId = null;
@@ -104,6 +107,18 @@ class Picture
     public function setPicture(string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getLike(): ?int
+    {
+        return $this->like;
+    }
+
+    public function setLike(int $like): static
+    {
+        $this->like = $like;
 
         return $this;
     }
