@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/loginSubmit.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+{% endblock %}
 {% block body %}
-<form action="{{ path('login-form') }}" method="post">
-    <input type="text" name="mail" placeholder="Votre mail">
-    <input type="text" name="password" placeholder="Votre mot de passe">
-    <button type="submit">Se connecter</button>
-</form>
+<div class="content">
+    <form action="{{ path('login-form') }}" method="post">
+        <input type="text" name="mail" placeholder="Votre mail">
+        <input type="password" name="password" placeholder="Votre mot de passe">
+        <button type="submit" class="button">Se connecter</button>
+    </form>
+</div>
 {% endblock %}
