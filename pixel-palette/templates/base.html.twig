@@ -13,6 +13,27 @@
         {% endblock %}
     </head>
     <body>
+        {% block navbar %}
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo PixelPalette">
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="">Auteurs</a></li>
+                        <li><a href="">Récent</a></li>
+                    </ul>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Rechercher...">
+                        <button type="submit"><img src="{{ asset('images/magnifying_glass.png') }}"></i></button>
+                    </div>
+                    <div>
+                        <a id="auth-buttons" href="">Connexion</a>
+                        <a class="button" href="">Inscription</a>
+                    </div>
+                </div>
+            </nav>
+        {% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>
