@@ -6,9 +6,20 @@
 {% block body %}
 <div class="content">
     <form action="{{ path('signup-form') }}" method="post">
-        <input type="mail" name="mail" placeholder="Votre mail">
-        <input type="text" name="pseudo" placeholder="Votre pseudo">
-        <input type="password" name="password" placeholder="Votre mot de passe">
+        <h1>S'inscrire</h1>
+        <p>Inscrivez-vous avec votre compte afin d’avoir accès à toutes les fonctionnalités du site.</p>
+        <div class="label-and-input">
+            <label>Mail</label>
+            <input type="mail" name="mail" placeholder="Votre mail...">
+        </div>
+        <div class="label-and-input">
+            <label>Pseudo</label>
+            <input type="text" name="pseudo" placeholder="Votre pseudo...">
+        </div>
+        <div class="label-and-input">
+            <label>Mot de passe</label>
+            <input type="password" name="password" placeholder="Votre mot de passe...">
+        </div>
         <button type="submit" class="button">S'inscrire</button>
     </form>
 </div>
