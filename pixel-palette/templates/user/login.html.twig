@@ -6,8 +6,16 @@
 {% block body %}
 <div class="content">
     <form action="{{ path('login-form') }}" method="post">
-        <input type="text" name="mail" placeholder="Votre mail">
-        <input type="password" name="password" placeholder="Votre mot de passe">
+        <h1>Se connecter</h1>
+        <p>Connectez vous avec votre compte afin d’avoir accès à toutes les fonctionnalités du site.</p>
+        <div class="label-and-input">
+            <label>Mail</label>
+            <input type="text" name="mail" placeholder="Votre mail...">
+        </div>
+        <div class="label-and-input">
+            <label>Mot de passe</label>
+            <input type="password" name="password" placeholder="Votre mot de passe...">
+        </div>
         <button type="submit" class="button">Se connecter</button>
     </form>
 </div>
