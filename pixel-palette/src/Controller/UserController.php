@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\Entity\Picture;
 
 class UserController extends AbstractController
 {
@@ -99,4 +101,55 @@ class UserController extends AbstractController
             "pseudo" => $author->getPseudo()
         ]);
     }
+
+    #[Route('/my-pictures/{id}', name: 'my-pictures')]
+    public function myPictures($id): Response
+    {
+        $author = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
+        $pictures = $author->getPictures();
+        return $this->render('pictures/my-pictures.html.twig', [
+            "pictures" => $pictures,
+            "pseudo" => $author->getPseudo()
+        ]);
+    }
+
+    #[Route('/add-picture', name: 'add-picture')]
+    public function addPictures(Request $request, SluggerInterface $slugger, SessionInterface $session): Response
+    {
+        $title = $request->request->get('title');
+        $description = $request->request->get('description');
+        $location = $request->request->get('location');
+        $file = $request->files->get('picture');  
+        $publishDate = new \DateTime();
+        $picture = new Picture();
+        
+        if ($file && !empty($session->get('id'))) {
+            $userId = $session->get('id');
+            $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $userId]);
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'.png';
+
+            try {
+                $file->move(
+                    $this->getParameter('upload_directory'),
+                    $newFilename
+                );
+                $picture->setTitle($title);
+                $picture->setDescription($description);
+                $picture->setPublishDate($publishDate);
+                $picture->setPicture($newFilename);
+                $picture->setLocation($location);
+                $picture->setLikes(0);
+                $picture->setUserId($user);
+                $user->addPicture($picture);
+                $this->entityManager->persist($picture);
+                $this->entityManager->flush();
+            } catch (FileException $e) {
+                var_dump($e);
+            }
+        }
+        return $this->redirectToRoute('my-pictures', ["id" => 1]);
+    }
+
 }

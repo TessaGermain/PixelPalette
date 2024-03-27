@@ -32,7 +32,7 @@ class Picture
     private ?string $picture = null;
 
     #[ORM\Column]
-    private ?int $like = null;
+    private ?int $likes = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     #[ORM\JoinColumn(nullable: false)]
@@ -111,14 +111,14 @@ class Picture
         return $this;
     }
 
-    public function getLike(): ?int
+    public function getLikes(): ?int
     {
-        return $this->like;
+        return $this->likes;
     }
 
-    public function setLike(int $like): static
+    public function setLikes(int $likes): static
     {
-        $this->like = $like;
+        $this->likes = $likes;
 
         return $this;
     }

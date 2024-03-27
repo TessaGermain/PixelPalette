@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/loginSubmit.css') }}">
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="content">
+    <form action="{{ path('add-picture') }}" method="post" enctype="multipart/form-data">
+        <h1>Ajouter une photo</h1>
+        <div class="label-and-input">
+            <label>Titre</label>
+            <input type="text" name="title" placeholder="Titre...">
+        </div>
+        <div class="label-and-input">
+            <label>Description</label>
+            <textarea name="description" placeholder="Description..."></textarea>
+        </div>
+        <div class="label-and-input">
+            <label>Lieu</label>
+            <input type="text" name="location" placeholder="Lieu...">
+        </div>
+        <div class="label-and-input">
+            <label>Photo</label>
+            <input type="file" name="picture" placeholder="Votre photo...">
+        </div>
+        <button type="submit" class="button">Ajouter</button>
+    </form>
+</div>
+{% endblock %}
