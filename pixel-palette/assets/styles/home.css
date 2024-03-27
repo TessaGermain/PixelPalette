@@ -53,6 +53,22 @@ span{
 .galerie{
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    padding: 50px 100px;
+    width: calc(100% - 100px * 2);
+}
+
+.galerie h2{
+    margin-bottom: 20px;
+}
+
+.galerie .pictures{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 50px 20px;
+}
+
+.galerie .pictures img{
+    width: 250px;
 }

@@ -19,12 +19,6 @@ class UserController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/home', name: 'home')]
-    public function home(): Response
-    {
-        return $this->render('home.html.twig');
-    }
-
     #[Route('/login', name: 'login')]
     public function login(): Response
     {
