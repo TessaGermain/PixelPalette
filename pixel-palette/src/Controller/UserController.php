@@ -128,7 +128,7 @@ class UserController extends AbstractController
             $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $userId]);
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'.png';
+            $newFilename = $safeFilename.'.'.$file->guessExtension();
 
             try {
                 $file->move(
