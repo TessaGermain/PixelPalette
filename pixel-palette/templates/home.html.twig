@@ -11,15 +11,26 @@
     <div class="content_landing">
         <h1>Bienvenue sur <span>PixelPalette</span></h1>
         <p>PixelPalette est une plateforme sociale où les passionnés de photographie se connectent pour partager leurs clichés et découvrir l'inspiration à travers une palette infinie d'images.</p>
-        <button><img src="{{ asset('images/image_icon.png') }}">Explorer</button>
+        <a href="#galerie"><button><img src="{{ asset('images/image_icon.png') }}">Explorer</button></a>
     </div>
 </div>
-<div class="galerie">
+<div id="galerie" class="galerie">
     <h2>Galerie</h2>
     <div class="pictures">
         {% for picture in pictures %}
-            <img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}">
+            <div class="picture">
+                <img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}">
+                <div class="like">
+                    <a href="{{ path('like', {'id': picture.id}) }}"><img onclick="triggerLike(event)" src="{{ asset('images/white_notliked.png') }}" alt="Liked Button" class="notliked"></a>
+                </div>
+            </div>
         {% endfor %}
     </div>
 </div>
+<script src="{{ asset('js/homescript.js') }}"></script>
+<script>
+    const likedPath = "{{ asset('images/white_liked.png') }}";
+    const notlikedPath = "{{ asset('images/white_notliked.png') }}";
+</script>
 {% endblock %}
+

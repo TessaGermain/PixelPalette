@@ -1,5 +1,5 @@
 .container_landing{
-    background-image: url('../images/landing.jpg');
+    background-image: url('../images/home.jpg');
     background-size: cover;
     background-position: center; 
     width: 100%; 
@@ -62,13 +62,39 @@ span{
     margin-bottom: 20px;
 }
 
-.galerie .pictures{
-    flex-wrap: wrap;
+.galerie .pictures {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
 }
+
+.galerie .pictures .picture {
+    position: relative;
+}
+
 
 .galerie .pictures img{
     width: 250px;
+    margin: 15px 0px 15px 0px;
+    transition: all 0.3s;
+}
+
+.galerie .pictures img:hover{
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.galerie .pictures .like {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    transition: all 0.3s;
+}
+
+.galerie .pictures .like img{
+    width: 20px;
+}
+
+.galerie .pictures .picture:hover .like img {
+    transform: scale(1.3); 
 }
