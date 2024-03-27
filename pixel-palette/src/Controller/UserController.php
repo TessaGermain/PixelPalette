@@ -22,12 +22,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/login', name: 'login')]
-    public function login(): Response
+    public function login(SessionInterface $session): Response
     {
         return $this->render('user/login.html.twig', [
-            "error" => ""
+            "error" => "",
+            "isLogin" => $session->get("isLogin", false),
+            "loginUserId" => $session->get("id", 0),
         ]);
-}
+    }
 
     #[Route('/login-form', name: 'login-form')]
     public function loginForm(Request $request, SessionInterface $session): Response
@@ -43,15 +45,20 @@ class UserController extends AbstractController
         } else {
             $session->clear();
             return $this->render('user/login.html.twig', [
-                "error" => "Mot de passe incorrect"
+                "error" => "Mot de passe incorrect",
+                "isLogin" => $session->get("isLogin", false),
+                "loginUserId" => $session->get("id", 0),
             ]);
         }
     } 
 
     #[Route('/signup', name: 'signup')]
-    public function signup(): Response
+    public function signup(SessionInterface $session): Response
     {
-        return $this->render('user/signup.html.twig');
+        return $this->render('user/signup.html.twig', [
+            "isLogin" => $session->get("isLogin", false),
+            "loginUserId" => $session->get("id", 0),
+        ]);
     }
 
     #[Route('/signup-form', name: 'signup-form')]
@@ -70,7 +77,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/authors', name: 'authors')]
-    public function authors(): Response
+    public function authors(SessionInterface $session): Response
     {
         $authors = $this->entityManager->getRepository(User::class)->findAll();
         $authorsAndPictures = [];
@@ -81,69 +88,30 @@ class UserController extends AbstractController
             $authorsAndPictures[$author->getId()]["numberPictures"] = count($pictures);
         }
         return $this->render('user/authors.html.twig', [
-            "authors" => $authorsAndPictures
+            "authors" => $authorsAndPictures,
+            "isLogin" => $session->get("isLogin", false),
+            "loginUserId" => $session->get("id", 0),
         ]);
     }
 
     #[Route('/author-pictures/{id}', name: 'author-pictures')]
-    public function authorPictures($id): Response
+    public function authorPictures($id, SessionInterface $session): Response
     {
         $author = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
         $pictures = $author->getPictures();
         return $this->render('user/author-pictures.html.twig', [
             "pictures" => $pictures,
-            "pseudo" => $author->getPseudo()
+            "pseudo" => $author->getPseudo(),
+            "isLogin" => $session->get("isLogin", false),
+            "loginUserId" => $session->get("id", 0),
         ]);
     }
 
-    #[Route('/my-pictures/{id}', name: 'my-pictures')]
-    public function myPictures($id): Response
+    #[Route('/logout', name: 'logout')]
+    public function logout(SessionInterface $session): Response
     {
-        $author = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
-        $pictures = $author->getPictures();
-        return $this->render('pictures/my-pictures.html.twig', [
-            "pictures" => $pictures,
-            "pseudo" => $author->getPseudo()
-        ]);
-    }
-
-    #[Route('/add-picture', name: 'add-picture')]
-    public function addPictures(Request $request, SluggerInterface $slugger, SessionInterface $session): Response
-    {
-        $title = $request->request->get('title');
-        $description = $request->request->get('description');
-        $location = $request->request->get('location');
-        $file = $request->files->get('picture');  
-        $publishDate = new \DateTime();
-        $picture = new Picture();
-        
-        if ($file && !empty($session->get('id'))) {
-            $userId = $session->get('id');
-            $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $userId]);
-            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'.'.$file->guessExtension();
-
-            try {
-                $file->move(
-                    $this->getParameter('upload_directory'),
-                    $newFilename
-                );
-                $picture->setTitle($title);
-                $picture->setDescription($description);
-                $picture->setPublishDate($publishDate);
-                $picture->setPicture($newFilename);
-                $picture->setLocation($location);
-                $picture->setLikes(0);
-                $picture->setUserId($user);
-                $user->addPicture($picture);
-                $this->entityManager->persist($picture);
-                $this->entityManager->flush();
-            } catch (FileException $e) {
-                var_dump($e);
-            }
-        }
-        return $this->redirectToRoute('my-pictures', ["id" => 1]);
+        $session->clear();
+        return $this->redirectToRoute('home');
     }
 
 }
