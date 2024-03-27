@@ -16,5 +16,10 @@
 </div>
 <div class="galerie">
     <h2>Galerie</h2>
+    <div class="pictures">
+        {% for picture in pictures %}
+            <img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}">
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
