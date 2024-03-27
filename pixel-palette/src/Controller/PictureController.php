@@ -26,4 +26,15 @@ class PictureController extends AbstractController
             'pictures' => $pictures,
         ]);
     }
+
+    #[Route('/like/{id}', name: 'like')]
+    public function like($id): Response
+    {
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        $picture->setLikes($picture->getLikes() + 1);
+        $this->entityManager->persist($picture);
+        $this->entityManager->flush();
+
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
 }
