@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Entity\Picture;
 use App\Entity\User;
@@ -86,10 +86,7 @@ class PictureController extends AbstractController
             }
         }
         return $this->redirectToRoute('my-pictures', [
-            "id" => 1,
-            "isLogin" => $session->get("isLogin", false),
-            "loginUserId" => $session->get("id", 0),
-            "pseudo" => $session->get("pseudo", "")
+            "id" => $session->get("id", 0),
         ]);
     }
 
@@ -140,4 +137,39 @@ class PictureController extends AbstractController
             "id" => $id,
         ]);
     }
+
+    #[Route('delete-picture/{id}', name: 'delete-picture')]
+    public function deletePicture($id, SessionInterface $session): Response
+    {
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        $this->entityManager->remove($picture);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('my-pictures', [
+            "id" => $session->get("id", 0),
+        ]);
+    }
+
+    #[Route('edit-picture/{id}', name: 'edit-picture')]
+    public function editPicture($id, SessionInterface $session): Response
+    {
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        return $this->render('pictures/edit-picture.html.twig', [
+            "picture" => $picture,
+            "isLogin" => $session->get("isLogin", false),
+            "loginUserId" => $session->get("id", 0),
+            "pseudo" => $session->get("pseudo", "")
+        ]);
+    }
+
+    #[Route('edit-picture-form/{id}', name: 'edit-picture-form')]
+    public function editPictureForm($id, SessionInterface $session): Response
+    {
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        $this->entityManager->persist($picture);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('my-pictures', [
+            "id" => $session->get("id", 0),
+        ]);
+    }
+
 }

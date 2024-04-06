@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/edit-picture.css') }}">
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="content">
+    <img src="{{ asset('images/galerie/' ~ picture.picture) }}" class="picture">
+    <form action="{{ path('edit-picture-form', {id: picture.id}) }}" method="post">
+        <h1>Modifier votre photo</h1>
+        <div class="label-and-input">
+            <label>Titre</label>
+            <input type="text" name="title" placeholder="Titre..." value="{{picture.title}}">
+        </div>
+        <div class="label-and-input">
+            <label>Description</label>
+            <textarea name="description" placeholder="Description...">{{picture.description}}</textarea>
+        </div>
+        <div class="label-and-input">
+            <label>Lieu</label>
+            <input type="text" name="location" placeholder="Lieu..." value="{{picture.location}}">
+        </div>
+        <button type="submit" class="button">Modifier</button>
+    </form>
+</div>
+{% endblock %}

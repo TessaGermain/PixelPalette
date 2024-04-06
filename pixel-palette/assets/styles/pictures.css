@@ -1,0 +1,61 @@
+.content {
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+    height: 100%;
+    padding: 30px;
+}
+.grid {
+    display: flex;
+    width: calc(70% - 30px);
+    padding: 0px 15px;
+    gap: 5px;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+.image {
+    position: relative;
+    width: 200px;
+    height: fit-content;
+}
+.picture {
+    width: 100%;
+}
+.delete, .edit {
+    position: absolute;
+    bottom: 8px;
+    right: 5px;
+    width: fit-content;
+    height: fit-content;
+}
+.edit  {
+    top: 5px;
+}
+.edit img {
+    width: 25px;
+}
+.delete {
+    background-color: white;
+    padding: 5px;
+    border-radius: 2px;
+    height: 20px;
+}
+.delete img {
+    width: 20px;
+}
+
+
+form {
+    width: calc(30% - 15px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-right: 15px;
+    height: 100%;
+    margin-top: 40px;
+}
+.label-and-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
