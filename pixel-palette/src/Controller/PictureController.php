@@ -37,4 +37,14 @@ class PictureController extends AbstractController
 
         return new Response('', Response::HTTP_NO_CONTENT);
     }
+
+    #[Route('/detail/{id}', name: 'detail')]
+    public function detail($id): Response
+    {
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+
+        return $this->render('picture/detail.html.twig', [
+            'picture' => $picture,
+        ]);
+    }
 }
