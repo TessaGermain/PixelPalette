@@ -14,11 +14,38 @@
         <p><b>Description :</b> {{ picture.description }}</p>
         <p><b>Auteur :</b> {{ picture.userId.pseudo}}</p>
         <p><b>Lieu :</b> {{ picture.location}}</p>
-        <p><b>Date :</b> {{ picture.publishDate|date('Y-m-d')}}</p>
+        <p><b>Date :</b> {{ picture.publishDate|date('d/m/Y')}}</p>
+        <a href="{{ path('like', {'id': picture.id}) }}">
         <div class="container_like">
-            <a href="{{ path('like', {'id': picture.id}) }}"><img onclick="triggerLike(event)" src="{{ asset('images/white_notliked.png') }}" alt="Liked Button" class="notliked"></a>
+            <img onclick="triggerLike(event)" src="{{ asset('images/white_notliked.png') }}" alt="Liked Button" class="notliked">
             <span id="like">{{ picture.likes }}</span>
         </div>
+        </a>
+    </div>
+</div>
+<div class="container_comment">
+    <h2>Commentaires</h2>
+    <form action="{{ path('add-comment', {'id': picture.id}) }}" method="post">
+        <textarea name="comment" id="comment" placeholder="Écrire un commentaire..."></textarea>
+        <div class="controller_form">
+            <p>Annuler</p>
+            <button class="button" type="submit">Ajouter un commentaire</button>
+        </div>
+    </form>
+    <div class="container_comments">
+        {% for comment in pictureComments %}
+        <div class="comment">
+            <div class="header_comment">
+                <div class="image">
+                    <img src="{{ asset('images/user.png') }}" alt="User">
+                </div>
+                <p class="white_name">{{comment.getUserId().pseudo}}</p>
+                <p class="grey_date">● {{comment.publishDate|date('d/m/Y')}}</p>
+            </div>
+            <p class="content_comment">{{comment.comment}}</p>
+            <hr>
+        </div>
+        {% endfor %}
     </div>
 </div>
 <script src="{{ asset('js/homescript.js') }}"></script>

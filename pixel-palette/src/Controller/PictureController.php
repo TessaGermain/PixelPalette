@@ -12,6 +12,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Entity\Picture;
 use App\Entity\User;
+use App\Entity\Comment;
 
 
 class PictureController extends AbstractController
@@ -107,13 +108,36 @@ class PictureController extends AbstractController
     public function detail($id, SessionInterface $session): Response
     {
         $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        $pictureComments = $picture->getComments();
 
         return $this->render('picture/detail.html.twig', [
+            'pictureComments' => $pictureComments,
+            
             'picture' => $picture,
             "isLogin" => $session->get("isLogin", false),
             "loginUserId" => $session->get("id", 0),
             "pseudo" => $session->get("pseudo", "")
+        ]);
+    }
 
+    #[Route('/add-comment/{id}', name: 'add-comment')]
+    public function addComment($id, SessionInterface $session, Request $request): Response
+    {   
+        $comment = $request->request->get('comment');
+        $entityComment = new Comment();
+        $entityComment->setComment($comment);
+        $publishDate = new \DateTime();
+        $entityComment->setPublishDate($publishDate);
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        $userId = $session->get('id');
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $userId]);
+        $picture->addComment($entityComment);
+        $user->addComment($entityComment);
+        $this->entityManager->persist($entityComment);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('detail', [
+            "id" => $id,
         ]);
     }
 }

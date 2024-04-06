@@ -2,12 +2,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% - 100px * 2);
-    padding: 50px 100px;
+    width: calc(100% - 150px * 2);
+    padding: 50px 150px;
 }
 
 .container_detail img{
-    margin-right: 30px;
+    margin-right: 50px;
+    width: 400px;
+}
+
+.container_description{
+    width: 50%;
 }
 
 .container_description h2{
@@ -31,6 +36,7 @@
     padding: 10px 15px;
     width: fit-content;
     color: #FFFFFF;
+    text-decoration: none;
 }
 
 .container_like img{
@@ -40,4 +46,97 @@
 
 b{
     color: #292929;
+}
+
+#like{
+    margin-bottom: 3px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.container_comment{
+    width: calc(100% - 80px);
+    padding: 50px 40px;
+    background-color: #292929;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.container_comment h2{
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.container_comment form textarea{
+    width: calc(100% - 30px);
+    height: 100px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #FFFFFF;
+    background-color: #292929;
+    color: #FFFFFF;
+}
+
+.container_comment form{
+    display: flex;
+    flex-direction: column;
+}
+
+.container_comment form .controller_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    align-self: flex-end;
+}
+
+.container_comment form .controller_form p{
+    color: #FFFFFF;
+}
+
+.container_comments{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.container_comments .comment{
+    margin: 20px 0;
+}
+
+.container_comments .comment .header_comment{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.container_comments .comment .header_comment .image{
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_comments .comment .header_comment .image img{
+    width: 20px;
+}
+
+.container_comments .comment .content_comment{
+    color: #DDDDDD;
+    margin: 20px 0;
+}
+
+
+.white_name{
+    color: #FFFFFF;
+}
+
+.grey_date{
+    color : #9B9B9B;
 }

@@ -16,5 +16,4 @@ function scroll(){
         top: window.scrollY - 200,
         behavior: 'smooth' // Pour un défilement fluide
       });
-      
 }
