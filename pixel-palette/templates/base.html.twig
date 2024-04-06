@@ -15,13 +15,12 @@
     <body>
         {% block navbar %}
             <nav class="navbar">
-                <div class="logo">
+                <a href="{{ path('home') }}" class="logo">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo PixelPalette">
-                </div>
+                </a>
                 <div class="menu">
                     <ul>
-                        <li><a href="">Auteurs</a></li>
-                        <li><a href="">Récent</a></li>
+                        <li><a href="{{ path('authors') }}">Auteurs</a></li>
                         {% if isLogin == true %}
                             <li><a href="{{ path('my-pictures', {id: loginUserId}) }}">Mes images</a></li>
                         {% endif %}

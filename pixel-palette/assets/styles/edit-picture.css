@@ -1,0 +1,29 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: calc(100% - 60px);
+    padding: 30px;
+}
+
+.picture {
+    max-width: 20%;
+    max-height: 250px;
+}
+
+form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-right: 15px;
+    margin-top: 40px;
+}
+.label-and-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

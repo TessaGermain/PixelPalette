@@ -65,7 +65,8 @@ span{
 .galerie .pictures {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: start;
+    gap: 15px;
 }
 
 .galerie .pictures .picture {
@@ -75,6 +76,7 @@ span{
 
 .galerie .pictures img{
     width: 250px;
+    max-height: 185px;
     margin: 15px 0px 15px 0px;
     transition: all 0.3s;
 }

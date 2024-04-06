@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/loginSubmit.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/pictures.css') }}">
 {% endblock %}
 {% block nav %}
 {{ parent() }}
 {% endblock %}
 {% block body %}
 <div class="content">
+    <div class="grid">
+    {% for picture in pictures %}
+        <div class="image">
+            <img src="{{ asset('images/galerie/' ~ picture.picture) }}" class="picture">
+            <a href="{{ path('delete-picture', {id: picture.id}) }}" class="delete"><img src="{{ asset('images/delete.png') }}"></a>
+            <a href="{{ path('edit-picture', {id: picture.id}) }}" class="edit"><img src="{{ asset('images/edition.png') }}"></a>
+        </div>
+    {% endfor %}
+    </div>
     <form action="{{ path('add-picture') }}" method="post" enctype="multipart/form-data">
         <h1>Ajouter une photo</h1>
         <div class="label-and-input">
