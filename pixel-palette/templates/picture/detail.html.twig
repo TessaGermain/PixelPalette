@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/detail.css') }}">
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="container_detail">
+    <img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}">
+    <div class="container_description">
+        <h2>{{ picture.title }}</h2>
+        <p><b>Description :</b> {{ picture.description }}</p>
+        <p><b>Auteur :</b> {{ picture.userId.pseudo}}</p>
+        <p><b>Lieu :</b> {{ picture.location}}</p>
+        <p><b>Date :</b> {{ picture.publishDate|date('Y-m-d')}}</p>
+        <div class="container_like">
+            <a href="{{ path('like', {'id': picture.id}) }}"><img onclick="triggerLike(event)" src="{{ asset('images/white_notliked.png') }}" alt="Liked Button" class="notliked"></a>
+            <span id="like">{{ picture.likes }}</span>
+        </div>
+    </div>
+</div>
+<script src="{{ asset('js/homescript.js') }}"></script>
+<script>
+    const likedPath = "{{ asset('images/white_liked.png') }}";
+    const notlikedPath = "{{ asset('images/white_notliked.png') }}";
+</script>
+{% endblock %}
+

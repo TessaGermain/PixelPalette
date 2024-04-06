@@ -19,7 +19,7 @@
     <div class="pictures">
         {% for picture in pictures %}
             <div class="picture">
-                <img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}">
+                <a href="{{ path('detail', {'id': picture.id}) }}"><img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}"></a>
                 <div class="like">
                     <a href="{{ path('like', {'id': picture.id}) }}"><img onclick="triggerLike(event)" src="{{ asset('images/white_notliked.png') }}" alt="Liked Button" class="notliked"></a>
                 </div>

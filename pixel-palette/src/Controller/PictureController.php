@@ -8,9 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Entity\Picture;
 use App\Entity\User;
+
 
 class PictureController extends AbstractController
 {
@@ -96,6 +100,20 @@ class PictureController extends AbstractController
         $this->entityManager->flush();
 
         return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route('/detail/{id}', name: 'detail')]
+    public function detail($id, SessionInterface $session): Response
+    {
+        $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+
+        return $this->render('picture/detail.html.twig', [
+            'picture' => $picture,
+            "isLogin" => $session->get("isLogin", false),
+            "loginUserId" => $session->get("id", 0),
+            "pseudo" => $session->get("pseudo", "")
+
+        ]);
     }
 
     #[Route('delete-picture/{id}', name: 'delete-picture')]
