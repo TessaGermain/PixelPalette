@@ -7,7 +7,7 @@
 <h1>Photos de {{ pseudo }}</h1>
 <div class="grid">
     {% for picture in pictures %}
-        <img alt="{{picture.title}}" src="{{ asset('images/galerie/' ~ picture.picture) }}">
+        <a href="{{ path('detail', {'id': picture.id}) }}"><img src="{{ asset('images/galerie/' ~ picture.picture) }}" alt="{{ picture.title }}"></a>
     {% endfor %}
 </div>
 {% endblock %}

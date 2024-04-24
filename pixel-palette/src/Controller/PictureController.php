@@ -41,6 +41,9 @@ class PictureController extends AbstractController
     {
         $author = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
         $pictures = $author->getPictures();
+        if ($session->get("isLogin") === false) {
+            return $this->redirectToRoute('login');
+        }
         return $this->render('pictures/my-pictures.html.twig', [
             "pictures" => $pictures,
             "isLogin" => $session->get("isLogin", false),
@@ -120,6 +123,9 @@ class PictureController extends AbstractController
     #[Route('/add-comment/{id}', name: 'add-comment')]
     public function addComment($id, SessionInterface $session, Request $request): Response
     {   
+        if ($session->get("isLogin") === false) {
+            return $this->redirectToRoute('login');
+        }
         $comment = $request->request->get('comment');
         $entityComment = new Comment();
         $entityComment->setComment($comment);
@@ -141,6 +147,9 @@ class PictureController extends AbstractController
     #[Route('delete-picture/{id}', name: 'delete-picture')]
     public function deletePicture($id, SessionInterface $session): Response
     {
+        if ($session->get("isLogin") === false) {
+            return $this->redirectToRoute('login');
+        }
         $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
         $this->entityManager->remove($picture);
         $this->entityManager->flush();
@@ -152,6 +161,9 @@ class PictureController extends AbstractController
     #[Route('edit-picture/{id}', name: 'edit-picture')]
     public function editPicture($id, SessionInterface $session): Response
     {
+        if ($session->get("isLogin") === false) {
+            return $this->redirectToRoute('login');
+        }
         $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
         return $this->render('pictures/edit-picture.html.twig', [
             "picture" => $picture,
@@ -167,8 +179,8 @@ class PictureController extends AbstractController
         $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
         $this->entityManager->persist($picture);
         $this->entityManager->flush();
-        return $this->redirectToRoute('my-pictures', [
-            "id" => $session->get("id", 0),
+        return $this->redirectToRoute('detail', [
+            "id" => $id,
         ]);
     }
 
