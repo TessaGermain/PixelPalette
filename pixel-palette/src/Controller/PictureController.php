@@ -174,9 +174,15 @@ class PictureController extends AbstractController
     }
 
     #[Route('edit-picture-form/{id}', name: 'edit-picture-form')]
-    public function editPictureForm($id, SessionInterface $session): Response
+    public function editPictureForm($id, SessionInterface $session, Request $request): Response
     {
         $picture = $this->entityManager->getRepository(Picture::class)->findOneBy(['id' => $id]);
+        $title = $request->request->get("title");
+        $detail = $request->request->get("description");
+        $location = $request->request->get("location");
+        $picture->setTitle($title);
+        $picture->setDescription($detail);
+        $picture->setLocation($location);
         $this->entityManager->persist($picture);
         $this->entityManager->flush();
         return $this->redirectToRoute('detail', [
